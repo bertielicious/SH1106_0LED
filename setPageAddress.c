@@ -5,6 +5,6 @@ uchar setPageAddress(uchar page)
 {
     uchar pageAddr;
     pageAddr = page | (0b10110000);// page takes a value from 0 to 7   
-    printf("pageAddr %d\n", pageAddr);
+    printf(" in func pageAddr %d\n", pageAddr);
     return pageAddr;
 }

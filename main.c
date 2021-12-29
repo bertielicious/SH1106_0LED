@@ -25,8 +25,8 @@
 
 void main(void) 
 {
-    uchar pageAddress, i;
-    
+    uchar pageAddress;
+    uchar i;
     configOsc();
     configPorts();
     configEUSART();
@@ -34,22 +34,37 @@ void main(void)
     configI2C();
     printf("Hola\n");
     configSH1106();
+    __delay_ms(100);
     
-   // pageAddress = setPageAddress(7);
-    //oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, COMMAND_ONE_CTRL_BYTE_ONLY_DATA_BYTES_TO_FOLLOW, pageAddress);
-    
-    __delay_ms(1000);
     clearSH1106();
-    oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, COMMAND_ONE_CTRL_BYTE_ONLY_DATA_BYTES_TO_FOLLOW, SH1106_SET_DISPLAY_ON);                // display ON 0xaf, display OFF 0xae   
-     pageAddress = setPageAddress(7);
-    setColumnAddress(3);
+    
+    pageAddress = setPageAddress(0);
+    printf("in main pageAddress %d\n", pageAddress);
+    setColumnAddress(2);
    
     
     oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, COMMAND_ONE_CTRL_BYTE_ONLY_DATA_BYTES_TO_FOLLOW, pageAddress);
-    for(i = 0; i < 1; i++)
+   
+    for(i = 0; i < 103; i++)
     {
-            oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, DISPLAY_DATA_ONE_CTRL_BYTE_DATA_BYTES_TO_FOLLOW, 0xff);
+            oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, DISPLAY_DATA_ONE_CTRL_BYTE_DATA_BYTES_TO_FOLLOW, hello[i]);
+            //setColumnAddress(i + 3);
+          
     }
+    
+    setColumnAddress(45);
+    pageAddress = setPageAddress(2);
+   
+    
+    oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, COMMAND_ONE_CTRL_BYTE_ONLY_DATA_BYTES_TO_FOLLOW, pageAddress);
+   
+    for(i = 0; i < 8; i++)
+    {
+            oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, DISPLAY_DATA_ONE_CTRL_BYTE_DATA_BYTES_TO_FOLLOW, heart[i]);
+            //setColumnAddress(i + 3);
+          
+    }
+    
     while(1)
     {
         DIAGNOSTIC_LED = HI;

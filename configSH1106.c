@@ -29,9 +29,46 @@
 #include "i2cWrite.h"
 #include "i2cStop.h"
 #include "oLedWrite.h"
+#include "clearSH1106.h"
 void configSH1106(void)
 {
-   oLedWrite(SH1106_WRITE_ADDRESS_COMMAND, COMMAND_ONE_CTRL_BYTE_ONLY_DATA_BYTES_TO_FOLLOW, 0xa1);
-       
+   oLedWrite(0x78, 0x00, 0xae); /* display OFF */
+  // oLedWrite(0x78, 0x00, 0xB0); /*set page 0*/
+  // oLedWrite(0x78, 0x00, 0xd5); /* divide ratio/osc freq mode set */
+ //  oLedWrite(0x78, 0x00, 0x80); /* +15% increase in osc freq */
+  // oLedWrite(0x78, 0x00, 0xa8); /* multiplex ratio mode set */
+ //  oLedWrite(0x78, 0x00, 0x1f); /* multiplex ratio data set */
+   oLedWrite(0x78, 0x00, 0xd3); /* display offset mode set */
+   oLedWrite(0x78, 0x00, 0x00); /* display offset data set */
+   oLedWrite(0x78, 0x00, 0x40); /* set display start line at line address 0 page 20*/
+   oLedWrite(0x78, 0x00, 0xad); /* set dc-dc converter control ON */
+   oLedWrite(0x78, 0x00, 0x8b); /* dc-dc mode is ON */
+   oLedWrite(0x78, 0x00, 0x33); /* charge pump voltage 9V* page 19*/
+   oLedWrite(0x78, 0x00, 0xa1); /* segment re-map */
+   oLedWrite(0x78, 0x00, 0xc8); /* scan direction normal */
+   oLedWrite(0x78, 0x00, 0xda); /* com pin HW configured */
+   oLedWrite(0x78, 0x00, 0x12); /*  */
+   oLedWrite(0x78, 0x00, 0x91); /* set contrast control page 20 */
+   oLedWrite(0x78, 0x00, 0x80); /* set contrast page 20*/
+   oLedWrite(0x78, 0x00, 0xd9); /* set discharge and pre-period data set */
+   oLedWrite(0x78, 0x00, 0x22); /* VCOM deselect level mode */
+   oLedWrite(0x78, 0x00, 0x28); /* VCOM deselect level data */
+   oLedWrite(0x78, 0x00, 0xa4); /* Output RAM to display */
+   oLedWrite(0x78, 0x00, 0xa6); /* Normal display */
+   oLedWrite(0x78, 0x00, 0xaf); /* display ON */
+   
 }
 
+/*column address p19
+ set Pump voltage p19
+ set display start line p20
+ set contrast control p20
+ set segment re-map p21
+ set entire display on/off p21
+ set normal/ reverse display p21
+ set multiplex ratio p 22
+ set dc-dc off/on p22
+ set display off/on p23
+ set page address p23
+ set common output scan direction p 24
+ set Display offset p 24*/
